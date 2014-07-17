@@ -25,10 +25,8 @@ Response::~Response() {
 }
 
 void Response::write(const string &str, const string &type, const Headers &headers, int status) {
-	if (status == 0)
-		status = mStatusCode;
 
-	Headers h = headers;
+	Headers h(headers);
 
 	stringstream cl;
 
@@ -39,10 +37,58 @@ void Response::write(const string &str, const string &type, const Headers &heade
 	if (! type.empty() )
 		h["Content-Type"] = type;
 
+	bareWrite(str, h, status);
+
+}
+
+void Response::forward(const string &location) {
+	Headers h;
+	h["Location"] = location;
+
+	write("", "", h, 301);
+}
+
+void Response::redirect(const string &location) {
+	Headers h;
+	h["Location"] = location;
+
+	write("", "", h, 302);
+}
+
+void Response::begin(const string &type, const Headers &headers) {
+	Headers h(headers);
+
+	h["Transfer-Encoding"] = "chunked";
+
+	bareWrite("", h, 200);
+}
+
+void Response::chunk(const string &payload) {
 	if (mChannel) {
 		stringstream ss;
-		ss << "HTTP/1.1 " << mStatusCode << " " << mStatusMessage[mStatusCode] << endl;
 
+		ss << hex << payload.size() << "\r\n" << payload;
+
+		mChannel->writeLine(ss.str() );
+	}
+}
+
+void Response::end() {
+	if (mChannel) {
+		mChannel->writeLine("0");
+		mChannel->writeLine("");
+	}
+}
+
+void Response::bareWrite(const string &str, const Headers &headers, int status) {
+	Headers h(headers);
+
+	if (status == 0)
+		status = mStatusCode;
+
+	if (mChannel) {
+		stringstream ss;
+		ss << "HTTP/1.1 " << status << " " << mStatusMessage[status] << endl;
 
 		// print h
 		Headers::iterator itr = h.begin();
@@ -61,19 +107,4 @@ void Response::write(const string &str, const string &type, const Headers &heade
 		mChannel->write(ss.str());
 	}
 }
-
-void Response::forward(const string &location) {
-	Headers h;
-	h["Location"] = location;
-
-	write("", "", h, 301);
-}
-
-void Response::redirect(const string &location) {
-	Headers h;
-	h["Location"] = location;
-
-	write("", "", h, 302);
-}
-
 
