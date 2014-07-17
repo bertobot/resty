@@ -19,6 +19,10 @@ public:
 
     virtual ~Request() { }
 
+    //void getParameters() const;
+
+    string getParameter(const string &key) const;
+
 // private:
     string method;
 
@@ -33,8 +37,12 @@ public:
 
     string body;
 
-
     set<string> mMethods;
+
+private:
+    map<string, string> parameters;
+
+    void parseParameters(const string &str);
 };
 
 #endif

@@ -27,6 +27,8 @@ Request::Request(Channel &channel) {
 
     version     = atof(tokens2[1].c_str() );
 
+    parseParameters(path);
+
     // TODO: validate version
     // TODO: validate all 
 
@@ -44,12 +46,12 @@ Request::Request(Channel &channel) {
         if (input.empty())
             break;
 
-        int pos = 0;
+        int pos = input.find(':');
 
-        if (pos = input.find(": ") == string::npos)
+        if (pos == string::npos)
             continue;
 
-        headers[input.substr(0, pos)] = input.substr(pos + 1);
+        headers[input.substr(0, pos)] = input.substr(pos + 2);
 
     } 
 
@@ -57,6 +59,29 @@ Request::Request(Channel &channel) {
 
     // TODO: validate Content-Length
     body = channel.read(atoi(headers["Content-Length"].c_str()));
+
+    parseParameters(body);
+}
+
+string Request::getParameter(const string &key) const {
+    map<string, string>::const_iterator itr = parameters.find(key);
+
+    if (itr != parameters.end() )
+        return itr->second;
+    return string();
+}
+
+void Request::parseParameters(const string &str) {
+    vector<string> tokens = split('&', str);
+
+    for (int i = 0; i < tokens.size(); i++) {
+        int pos = tokens[i].find('=');
+
+        if (pos == string::npos)
+            continue;
+
+        parameters[tokens[i].substr(0, pos)] = tokens[i].substr(pos + 1);
+    }
 }
 
 // vim: ts=4:sw=4:expandtab
