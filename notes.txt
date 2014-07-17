@@ -1,0 +1,30 @@
+
+void hello(Request, Response, map<str, str> params) {
+	resp.write("hello world");
+}
+
+void jsonResponder(Request, Response, map<str, str> params) {
+	resp.type = "application/json";
+	
+	resp.write(somethingInJson);
+}
+
+
+
+
+void hello2(Request req, Response res, params) {
+	resp.writeLine();
+}
+
+
+
+void postHandler(Req, Res, Params) {
+	
+}
+
+
+resty::GET("/hello", hello);
+resty::GET("/hello/:name", hello2);
+resty::GET("/json/blah", jsonResponder);
+resty::POST("/post", postHandler);
+resty::PUT("/put", putHandler);
