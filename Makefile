@@ -1,4 +1,4 @@
-CC=g++ -g3 -Wall -ansi
+CC=g++ $(CFLAGS) -Wall -ansi
 OBJ=\
 Request.o \
 Response.o \
