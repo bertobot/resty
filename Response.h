@@ -27,7 +27,7 @@ public:
 
 	void begin(const string &type, const Headers &headers = Headers());
 
-	void chunk(const string &payload);
+	void chunk(const string &payload, bool finished = false);
 
 	void end();
 

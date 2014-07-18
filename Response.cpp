@@ -63,21 +63,22 @@ void Response::begin(const string &type, const Headers &headers) {
 	bareWrite("", h, 200);
 }
 
-void Response::chunk(const string &payload) {
+void Response::chunk(const string &payload, bool finished) {
 	if (mChannel) {
 		stringstream ss;
 
 		ss << hex << payload.size() << "\r\n" << payload;
 
 		mChannel->writeLine(ss.str() );
+
+		if (finished)
+			mChannel->writeLine("0\r\n");
 	}
 }
 
 void Response::end() {
-	if (mChannel) {
-		mChannel->writeLine("0");
-		mChannel->writeLine("");
-	}
+	if (mChannel) 
+		mChannel->writeLine("0\r\n");
 }
 
 void Response::bareWrite(const string &str, const Headers &headers, int status) {
