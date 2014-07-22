@@ -109,3 +109,38 @@ void Response::bareWrite(const string &str, const Headers &headers, int status) 
 	}
 }
 
+void Response::renderFile(const string &type, const string &filename) {
+	FILE *file = fopen(filename.c_str(), "r");
+
+	if (! file) {
+		mStatusCode = 500;
+		write();
+		throw Exception("couldn't open file");
+	}
+
+	char *buffer = new char[8192];
+
+	long int read = 0;
+
+	begin(type);
+
+	while (true) {
+		bzero(buffer, 8192);
+
+		read = fread(buffer, 8192, 1, file);
+
+		chunk(buffer);
+
+		if (read < 8192)
+			break;
+	}
+
+	end();
+
+	delete [] buffer;
+
+	delete file;
+
+	file = NULL;
+}
+

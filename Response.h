@@ -31,6 +31,8 @@ public:
 
 	void end();
 
+	void renderFile(const string &type, const string &filename);
+
 private:
 	string mType;
 	Channel *mChannel;
