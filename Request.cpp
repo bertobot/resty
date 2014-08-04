@@ -21,15 +21,25 @@ Request::Request(Channel &channel) {
 
     method  = tokens[0];
 
-    path    = tokens[1];
-    
+    rawPath = tokens[1];
+
     vector<string> tokens2 = split('/', tokens[2]);
 
     protocol    = tokens2[0];
 
     version     = atof(tokens2[1].c_str() );
 
-    parseParameters(path);
+    // parse out relative path and query
+
+    SplitIterator si(tokens[1], "?");
+
+    path = si.next();
+
+    query = si.rest();
+
+    parseParameters(query);
+
+    
 
     // TODO: validate version
     // TODO: validate all 

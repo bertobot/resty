@@ -29,6 +29,10 @@ public:
 
     string path;
 
+    string rawPath;
+
+    string query;
+
     string protocol;
     
     float version;
