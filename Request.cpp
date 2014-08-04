@@ -4,7 +4,9 @@ Request::Request(Channel &channel) {
     
     // mMethods = { "DELETE", "GET", "HEAD", "POST", "PUT" };
     
-    string input = channel.readLine();
+    BufferedReader bchannel(&channel);
+
+    string input = bchannel.readLine();
 
     vector<string> tokens = split(' ', input);
 
@@ -36,7 +38,7 @@ Request::Request(Channel &channel) {
 
     // process headers
     while (true) {
-        input = channel.readLine();
+        input = bchannel.readLine();
 
         // debug
         //cout << "[d] " << input << endl;
@@ -58,7 +60,7 @@ Request::Request(Channel &channel) {
     // process body
 
     // TODO: validate Content-Length
-    body = channel.read(atoi(headers["Content-Length"].c_str()));
+    body = bchannel.read(atoi(headers["Content-Length"].c_str()));
 
     parseParameters(body);
 }

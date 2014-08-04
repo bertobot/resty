@@ -2,6 +2,7 @@
 #define __Request_h_
 
 #include <MySocket/Socket.h>
+#include <MySocket/BufferedReader.h>
 #include <libstrmanip++/utils.h>
 
 #include <map>
