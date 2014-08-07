@@ -37,8 +37,23 @@ void Response::write(const string &str, const string &type, const Headers &heade
 	if (! type.empty() )
 		h["Content-Type"] = type;
 
-	bareWrite(str, h, status);
+	bareWrite(str.c_str(), str.length(), h, status);
+}
 
+void Response::write(const char *data, size_t len, const string &type, const Headers &headers, int status) {
+
+	Headers h(headers);
+
+	stringstream ss;
+
+	ss << len;
+
+	h["Content-Length"] = ss.str();
+
+	if (! type.empty() )
+		h["Content-Type"] = type;
+
+	bareWrite(data, len, h, status);
 }
 
 void Response::forward(const string &location) {
@@ -60,7 +75,7 @@ void Response::begin(const string &type, const Headers &headers) {
 
 	h["Transfer-Encoding"] = "chunked";
 
-	bareWrite("", h, 200);
+	bareWrite("", 0, h, 200);
 }
 
 void Response::chunk(const string &payload, bool finished) {
@@ -81,7 +96,7 @@ void Response::end() {
 		mChannel->writeLine("0\r\n");
 }
 
-void Response::bareWrite(const string &str, const Headers &headers, int status) {
+void Response::bareWrite(const char *data, size_t len, const Headers &headers, int status) {
 	Headers h(headers);
 
 	if (status == 0)
@@ -103,9 +118,9 @@ void Response::bareWrite(const string &str, const Headers &headers, int status) 
 
 		ss << "\r\n";
 
-		ss << str;
-
 		mChannel->write(ss.str());
+
+		mChannel->write(data, len);
 	}
 }
 

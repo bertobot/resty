@@ -21,6 +21,8 @@ public:
 
 	void write(const string &str = "", const string &type = "", const Headers &headers = Headers(), int status = 0);
 
+	void write(const char *data, size_t len, const string &type = "", const Headers &headers = Headers(), int status = 0);
+
 	void forward(const string &location);
 
 	void redirect(const string &location);
@@ -41,8 +43,7 @@ private:
 	map<int, string> mStatusMessage;
 
 
-
-	void bareWrite(const string &str, const Headers &headers, int status);
+	void bareWrite(const char *data, size_t len, const Headers &headers, int status);
 };
 
 #endif
