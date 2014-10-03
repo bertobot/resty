@@ -58,7 +58,7 @@ Request::Request(Channel &channel) {
         if (input.empty())
             break;
 
-        int pos = input.find(':');
+        size_t pos = input.find(':');
 
         if (pos == string::npos)
             continue;
@@ -86,8 +86,8 @@ string Request::getParameter(const string &key) const {
 void Request::parseParameters(const string &str) {
     vector<string> tokens = split('&', str);
 
-    for (int i = 0; i < tokens.size(); i++) {
-        int pos = tokens[i].find('=');
+    for (unsigned int i = 0; i < tokens.size(); i++) {
+        size_t pos = tokens[i].find('=');
 
         if (pos == string::npos)
             continue;
