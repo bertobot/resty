@@ -8,7 +8,7 @@ Resty.o
 lib: $(OBJ)
 	ar rs libresty.a $(OBJ)
 
-install:
+install: lib
 	/bin/mkdir -p /usr/local/include/resty
 	/bin/cp *.h /usr/local/include/resty/
 	/bin/cp *.a /usr/local/lib/
