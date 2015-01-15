@@ -19,7 +19,7 @@ public:
 
 	virtual ~RESTChannelHandler() { mRequestMap = NULL; }
 
-	void onMessageReceived(Channel &channel);
+	void onMessageReceived(Channel &channel, std::string &payload);
 
 	/*
 	void onException();

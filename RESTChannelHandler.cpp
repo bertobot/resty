@@ -1,9 +1,9 @@
 #include "RESTChannelHandler.h"
 
-void RESTChannelHandler::onMessageReceived(Channel &channel) {
+void RESTChannelHandler::onMessageReceived(Channel &channel, std::string &payload) {
 
     try {
-        Request request(channel);
+        Request request(payload);
 
         if ((*mRequestMap)[request.method][request.path]) {
             Response res(&channel);
