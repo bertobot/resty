@@ -1,10 +1,10 @@
 #include "Request.h"
 
-Request::Request(Channel &channel) {
+Request::Request(string &payload) {
     
     // mMethods = { "DELETE", "GET", "HEAD", "POST", "PUT" };
     
-    BufferedReader bchannel(&channel);
+    SplitIterator bchannel(payload);
 
     string input = bchannel.readLine();
 

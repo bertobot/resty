@@ -2,7 +2,6 @@
 #define __Request_h_
 
 #include <MySocket/Socket.h>
-#include <MySocket/BufferedReader.h>
 #include <libstrmanip++/utils.h>
 
 #include <map>
@@ -16,7 +15,7 @@ using namespace std;
 
 class Request {
 public:
-    Request(Channel &channel);
+    Request(string &payload);
 
     virtual ~Request() { }
 
