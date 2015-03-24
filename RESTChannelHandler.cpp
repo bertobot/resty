@@ -5,20 +5,36 @@ void RESTChannelHandler::onMessageReceived(Channel &channel, std::string &payloa
     try {
         Request request(payload);
 
-        if ((*mRequestMap)[request.method][request.path]) {
-            Response res(&channel);
+        bool done = false;
 
-            MethodHandler f;
+        boost::match_results<string::const_iterator> capture;
 
-            f  = (*mRequestMap)[request.method][request.path];
+        for (unsigned int i = 0; i < (*mRequestMap)[request.method].size(); i++) {
 
-            f(request, res);
+            if (regex_search(request.path, capture, (*mRequestMap)[request.method][i].pathre) ) {
 
-            //&((*mRequestMap)[request.method][request.path])(request, res);
+                // push all matches into parameters.
+
+                for (unsigned int j = 0; j < (*mRequestMap)[request.method][i].names.size(); j++)
+                    request.setParameter((*mRequestMap)[request.method][i].names[j], capture[j+1]);
+
+
+                Response res(&channel);
+
+                MethodHandler f;
+
+                f = (*mRequestMap)[request.method][i].func;
+
+                f(request, res);
+             
+                done = true;
+
+                break;
+
+            }
         }
-        
 
-        else {
+        if (! done) {
             Response fof(&channel, 404);
             fof.write();
         }
