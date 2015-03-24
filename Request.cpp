@@ -83,6 +83,10 @@ string Request::getParameter(const string &key) const {
     return string();
 }
 
+void Request::setParameter(const string &key, const string &value) {
+    parameters[key] = value;
+}
+
 void Request::parseParameters(const string &str) {
     vector<string> tokens = split('&', str);
 

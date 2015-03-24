@@ -23,6 +23,8 @@ public:
 
     string getParameter(const string &key) const;
 
+    void setParameter(const string &key, const string &value);
+
 // private:
     string method;
 
