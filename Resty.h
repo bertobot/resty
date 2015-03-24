@@ -34,6 +34,10 @@ private:
     RESTChannelHandler *mRCH;
 
     Server *mServer;
+
+    RequestEnvelop parsePath(const string &path, MethodHandler f);
+
+    void prep(const string &method, const string &path, MethodHandler f);
 };
 
 #endif
