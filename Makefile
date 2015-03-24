@@ -18,7 +18,7 @@ uninstall:
 	/bin/rm -f /usr/local/lib/libresty.a
 
 sample: lib sample.o
-	$(CC) -o sample sample.o -L. -lresty -lnetty++ -lSocket -lMyThread -lpthread -lstrmanip++
+	$(CC) -o sample sample.o -L. -lresty -lnetty++ -lSocket -lMyThread -lpthread -lstrmanip++ -lboost_regex
 
 .cpp.o:
 	$(CC) -c $<
