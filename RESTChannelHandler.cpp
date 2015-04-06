@@ -3,7 +3,7 @@
 void RESTChannelHandler::onMessageReceived(Channel &channel, std::string &payload) {
 
     try {
-        Request request(payload);
+        Request request(payload, channel);
 
         bool done = false;
 

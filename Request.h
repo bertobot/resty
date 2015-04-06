@@ -15,7 +15,7 @@ using namespace std;
 
 class Request {
 public:
-    Request(string &payload);
+    Request(string &payload, Channel &channel);
 
     virtual ~Request() { }
 

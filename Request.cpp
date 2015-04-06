@@ -1,8 +1,11 @@
 #include "Request.h"
 
-Request::Request(string &payload) {
+Request::Request(string &payload, Channel &channel) {
     
     // mMethods = { "DELETE", "GET", "HEAD", "POST", "PUT" };
+    
+    // debug
+    printf("[d] payload: '%s'\n", payload.c_str() );
     
     SplitIterator bchannel(payload);
 
@@ -70,7 +73,14 @@ Request::Request(string &payload) {
     // process body
 
     // TODO: validate Content-Length
-    body = bchannel.read(atoi(headers["Content-Length"].c_str()));
+    int contentLength = atoi(headers["Content-Length"].c_str());
+
+    // TODO: handle other forms of comm like chunked transfer encoding?
+    
+    if (bchannel.empty() )
+        body = channel.read(contentLength);
+    else
+        body = bchannel.read(contentLength);
 
     parseParameters(body);
 }
