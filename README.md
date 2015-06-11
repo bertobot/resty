@@ -1,4 +1,4 @@
-Resty - a lite C++ REST container.
+Resty - a lite C++ REST container using [netty++](/bertobot/nettyplusplus)
 
 ```c++
 #include "Resty.h"
