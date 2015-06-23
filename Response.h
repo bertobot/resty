@@ -35,6 +35,15 @@ public:
 
 	void renderFile(const string &type, const string &filename);
 
+    // convenience wrappers
+    // TODO: add others
+    void Ok(const string &str="", const string &type="", const Headers &headers=Headers());
+    void Created(const string &str="", const string &type="", const Headers &headers=Headers());
+    void Accepted(const string &str="", const string &type="", const Headers &headers=Headers());
+    void BadRequest(const string &str="", const string &type="", const Headers &headers=Headers());
+    void NotFound(const string &str="", const string &type="", const Headers &headers=Headers());
+    void InternalServerError(const string &str="", const string &type="", const Headers &headers=Headers());
+
 private:
 	string mType;
 	Channel *mChannel;
