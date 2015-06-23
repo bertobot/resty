@@ -159,27 +159,27 @@ void Response::renderFile(const string &type, const string &filename) {
 	file = NULL;
 }
 
-void Response::Ok(const string &str, const string &type, const Headers &headers) {
+void Response::ok(const string &str, const string &type, const Headers &headers) {
     write(str, type, headers, 200);
 }
 
-void Response::Created(const string &str, const string &type, const Headers &headers) {
+void Response::created(const string &str, const string &type, const Headers &headers) {
     write(str, type, headers, 201);
 }
 
-void Response::Accepted(const string &str, const string &type, const Headers &headers) {
+void Response::accepted(const string &str, const string &type, const Headers &headers) {
     write(str, type, headers, 202);
 }
 
-void Response::BadRequest(const string &str, const string &type, const Headers &headers) {
+void Response::badRequest(const string &str, const string &type, const Headers &headers) {
     write(str, type, headers, 400);
 }
 
-void Response::NotFound(const string &str, const string &type, const Headers &headers) {
+void Response::notFound(const string &str, const string &type, const Headers &headers) {
     write(str, type, headers, 404);
 }
 
-void Response::InternalServerError(const string &str, const string &type, const Headers &headers) {
+void Response::internalServerError(const string &str, const string &type, const Headers &headers) {
     write(str, type, headers, 500);
 }
 

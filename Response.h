@@ -37,12 +37,12 @@ public:
 
     // convenience wrappers
     // TODO: add others
-    void Ok(const string &str="", const string &type="", const Headers &headers=Headers());
-    void Created(const string &str="", const string &type="", const Headers &headers=Headers());
-    void Accepted(const string &str="", const string &type="", const Headers &headers=Headers());
-    void BadRequest(const string &str="", const string &type="", const Headers &headers=Headers());
-    void NotFound(const string &str="", const string &type="", const Headers &headers=Headers());
-    void InternalServerError(const string &str="", const string &type="", const Headers &headers=Headers());
+    void ok(const string &str="", const string &type="", const Headers &headers=Headers());
+    void created(const string &str="", const string &type="", const Headers &headers=Headers());
+    void accepted(const string &str="", const string &type="", const Headers &headers=Headers());
+    void badRequest(const string &str="", const string &type="", const Headers &headers=Headers());
+    void notFound(const string &str="", const string &type="", const Headers &headers=Headers());
+    void internalServerError(const string &str="", const string &type="", const Headers &headers=Headers());
 
 private:
 	string mType;
