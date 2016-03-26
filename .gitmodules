@@ -1,0 +1,12 @@
+[submodule "contrib/MySocket"]
+	path = contrib/MySocket
+	url = ssh://svn1/data/repo/MySocket
+[submodule "contrib/MyThread"]
+	path = contrib/MyThread
+	url = ssh://svn1/data/repo/MyThread
+[submodule "contrib/netty++"]
+	path = contrib/netty++
+	url = ssh://svn1/data/repo/netty++
+[submodule "contrib/libstrmanip++"]
+	path = contrib/libstrmanip++
+	url = ssh://svn1/data/repo/libstrmanip++
