@@ -29,7 +29,7 @@ void bye(const Request &request, Response &response) {
 
 int main() {
 	
-	Resty rest(8080, 1);
+	Resty rest(18080, 1);
 
 	rest.GET("/helloworld", helloworld);
 
@@ -41,7 +41,10 @@ int main() {
 
 	rest.GET("/bye/:first/:second", bye);
 
-	
+    // c++11 lamda!
+    rest.GET("/lamda", [](const Request &request, Response &response) {
+        response.write("lamdas!\n", "text/plain");
+    });
 
 	rest.run();
 
