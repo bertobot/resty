@@ -1,4 +1,5 @@
-CC=g++ $(CFLAGS) -Wall -ansi
+INCLUDE=-Icontrib/
+CC=g++ -std=c++11 -Wall $(CFLAGS)
 OBJ=\
 Request.o \
 Response.o \
@@ -18,10 +19,10 @@ uninstall:
 	/bin/rm -f /usr/local/lib/libresty.a
 
 sample: lib sample.o
-	$(CC) -o sample sample.o -L. -lresty -lnetty++ -lSocket -lMyThread -lpthread -lstrmanip++ -lboost_regex
+	$(CC) -o sample sample.o -Lcontrib/MySocket -Lcontrib/MyThread -Lcontrib/netty++ -Lcontrib/libstrmanip++ -L. -lresty -lnetty++ -lSocket -lMyThread -lpthread -lstrmanip++ -lboost_regex
 
 .cpp.o:
-	$(CC) -c $<
+	$(CC) $(INCLUDE) -c $<
 
 clean:
 	rm -f *.o
