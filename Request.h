@@ -25,6 +25,8 @@ public:
 
     void setParameter(const string &key, const string &value);
 
+    string getHeader(const string &key) const;
+
 // private:
     string method;
 

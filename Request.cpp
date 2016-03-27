@@ -110,5 +110,14 @@ void Request::parseParameters(const string &str) {
     }
 }
 
+string Request::getHeader(const string &key) const {
+    map<string, string>::const_iterator itr = headers.find(key);
+
+    if (itr != headers.end() )
+        return itr->second;
+
+    return string();
+}
+
 // vim: ts=4:sw=4:expandtab
 
