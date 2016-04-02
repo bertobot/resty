@@ -194,8 +194,8 @@ void Response::_continue(const string &str, const string &type, const Headers &h
 void Response::requestEntityTooLarge(const string &str, const string &type, const Headers &headers) {
     write(str, type, headers, 413);
 }
-_
+
 void Response::unsupportedMediaType(const string &str, const string &type, const Headers &headers) {
     write(str, type, headers, 415);
 }
-_
+
