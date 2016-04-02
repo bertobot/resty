@@ -44,6 +44,8 @@ public:
     void notFound(const string &str="", const string &type="", const Headers &headers=Headers());
     void internalServerError(const string &str="", const string &type="", const Headers &headers=Headers());
     void _continue(const string &str="", const string &type="", const Headers &headers=Headers());
+    void requestEntityTooLarge(const string &str="", const string &type="", const Headers &headers=Headers());
+    void unsupportedMediaType(const string &str="", const string &type="", const Headers &headers=Headers());
 
 private:
 	string mType;

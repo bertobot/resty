@@ -17,6 +17,8 @@ Response::Response(Channel *channel, int statusCode) {
 	mStatusMessage[401] = "Authorization Required";
 	mStatusMessage[403] = "Forbidden";
 	mStatusMessage[404] = "Not Found";
+	mStatusMessage[413] = "Request Entity Too Large";
+	mStatusMessage[415] = "Unsupported Media Type";
 
 	mStatusMessage[500] = "Internal Error";
 	mStatusMessage[501] = "Not Implemented";
@@ -189,3 +191,11 @@ void Response::_continue(const string &str, const string &type, const Headers &h
     write(str, type, headers, 100);
 }
 
+void Response::requestEntityTooLarge(const string &str, const string &type, const Headers &headers) {
+    write(str, type, headers, 413);
+}
+_
+void Response::unsupportedMediaType(const string &str, const string &type, const Headers &headers) {
+    write(str, type, headers, 415);
+}
+_
