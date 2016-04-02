@@ -5,6 +5,8 @@ Response::Response(Channel *channel, int statusCode) {
 	mStatusCode = statusCode;
 
 	// TODO: move this out
+	mStatusMessage[100] = "Continue";
+
 	mStatusMessage[200] = "OK";
 
 	mStatusMessage[301] = "Moved";
@@ -181,5 +183,9 @@ void Response::notFound(const string &str, const string &type, const Headers &he
 
 void Response::internalServerError(const string &str, const string &type, const Headers &headers) {
     write(str, type, headers, 500);
+}
+
+void Response::_continue(const string &str, const string &type, const Headers &headers) {
+    write(str, type, headers, 100);
 }
 
