@@ -1,4 +1,4 @@
-INCLUDE=-Icontrib/
+INCLUDE += -Icontrib/
 CC=g++ -std=c++11 -Wall $(CFLAGS)
 OBJ=\
 Request.o \
